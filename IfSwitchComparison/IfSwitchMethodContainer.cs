@@ -1,6 +1,9 @@
-﻿namespace IfSwitchComparison
+﻿using System;
+using BenchmarkDotNet;
+
+namespace IfSwitchComparison
 {
-    public static class IfSwitchMethodContainer
+    public class IfSwitchMethodContainer
     {
         // m_ numeration for convinient work with the IlSpy
 
@@ -51,6 +54,7 @@
 
         #region if\switch block and any method
         // Switch block and method, no switch default
+        
         public static int m5_SwitchAndMethodTest(int x)
         {
             int result = -1;
@@ -66,6 +70,7 @@
         }
 
         // if block and method, no "else if" constructions
+        
         public static int m6_IfAndMethodTest(int x)
         {
             int result = -1;
@@ -79,6 +84,7 @@
         }
 
         // switch block and method, with "default" construction 
+        
         public static int m7_SwitchDefaultAndMethodTest(int x)
         {
             int result = -1;
@@ -95,6 +101,7 @@
         }
 
         // if block and method, with "else if" constructions
+        
         public static int m8_IfElseAndMethodTest(int x)
         {
             int result = -1;
@@ -106,6 +113,88 @@
             m9_LogResult(result);
 
             return result;
+        }
+        #endregion
+
+        #region Benchmarks methods
+        [Benchmark]
+        public int Switch_NoDefault_NoOtherOperation()
+        {
+            m1_SwitchTest(1);
+            m1_SwitchTest(10);
+            m1_SwitchTest(20);
+            m1_SwitchTest(30);
+            return 0;
+        }
+
+        [Benchmark]
+        public int If_NoElse_NoOtherOperations()
+        {
+            m2_IfTest(1);
+            m2_IfTest(10);
+            m2_IfTest(20);
+            m2_IfTest(30);
+            return 0;
+        }
+
+        [Benchmark]
+        public int Switch_Default_NoOtherOperations()
+        {
+            m3_SwitchDefaultTest(1);
+            m3_SwitchDefaultTest(10);
+            m3_SwitchDefaultTest(20);
+            m3_SwitchDefaultTest(30);
+            return 0;
+        }
+
+        [Benchmark]
+        public int If_ElseIf_NoOtherOperations()
+        {
+            m4_IfElseTest(1);
+            m4_IfElseTest(10);
+            m4_IfElseTest(20);
+            m4_IfElseTest(30);
+            return 0;
+        }
+
+        [Benchmark]
+        public int Switch_NoDefault_OtherOperation()
+        {
+            m5_SwitchAndMethodTest(1);
+            m5_SwitchAndMethodTest(10);
+            m5_SwitchAndMethodTest(20);
+            m5_SwitchAndMethodTest(30);
+            return 0;
+        }
+
+        [Benchmark]
+        public int If_NoElse_OtherOperations()
+        {
+            m6_IfAndMethodTest(1);
+            m6_IfAndMethodTest(10);
+            m6_IfAndMethodTest(20);
+            m6_IfAndMethodTest(30);
+            return 0;
+        }
+
+        [Benchmark]
+        public int Switch_Default_OtherOperations()
+        {
+            m7_SwitchDefaultAndMethodTest(1);
+            m7_SwitchDefaultAndMethodTest(10);
+            m7_SwitchDefaultAndMethodTest(20);
+            m7_SwitchDefaultAndMethodTest(30);
+            return 0;
+        }
+
+        [Benchmark]
+        public int If_ElseIf_OtherOperations()
+        {
+            m8_IfElseAndMethodTest(1);
+            m8_IfElseAndMethodTest(10);
+            m8_IfElseAndMethodTest(20);
+            m8_IfElseAndMethodTest(30);
+            return 0;
         }
         #endregion
 
